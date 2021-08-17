@@ -54,6 +54,7 @@ import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.findbugs.rules.AlaudaRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FbContribRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindSecurityBugsRulesDefinition;
 import org.sonar.plugins.findbugs.rules.FindbugsRulesDefinition;
@@ -151,7 +152,8 @@ public class FindbugsConfiguration implements Startable {
           String repKey = activeRule.ruleKey().repository();
           return repKey.contains(FindbugsRulesDefinition.REPOSITORY_KEY) ||
             repKey.contains(FindSecurityBugsRulesDefinition.REPOSITORY_KEY) ||
-            repKey.contains(FbContribRulesDefinition.REPOSITORY_KEY);
+            repKey.contains(FbContribRulesDefinition.REPOSITORY_KEY) ||
+            repKey.contains(AlaudaRulesDefinition.REPOSITORY_KEY);
         })
           .collect(Collectors.toList())
       );
@@ -167,7 +169,8 @@ public class FindbugsConfiguration implements Startable {
     for (ActiveRule activeRule : activeRules) {
       String repoKey = activeRule.ruleKey().repository();
 
-      if (repoKey.contains(FindSecurityBugsRulesDefinition.REPOSITORY_KEY) || repoKey.contains(FindbugsRulesDefinition.REPOSITORY_KEY) || repoKey.contains(FbContribRulesDefinition.REPOSITORY_KEY)) {
+      if (repoKey.contains(FindSecurityBugsRulesDefinition.REPOSITORY_KEY) || repoKey.contains(FindbugsRulesDefinition.REPOSITORY_KEY)
+              || repoKey.contains(FbContribRulesDefinition.REPOSITORY_KEY) || repoKey.contains(AlaudaRulesDefinition.REPOSITORY_KEY)) {
         Match child = new Match();
         child.setBug(new Bug(activeRule.internalKey()));
         root.addMatch(child);
