@@ -1,4 +1,4 @@
-<rules><!-- This file is auto-generated. -->
+<rules>
   <rule key='DuplicatedBlocks' priority='MAJOR'>
     <name>Source files should not have any duplicated blocks</name>
     <configKey>DuplicatedBlocks</configKey>
