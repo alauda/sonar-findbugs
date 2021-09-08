@@ -2423,6 +2423,10 @@ structure would be more readable and maintainable, and should be used instead.&l
 &lt;p&gt;This rule ignores &lt;code&gt;switch&lt;/code&gt;es over &lt;code&gt;Enum&lt;/code&gt;s and empty, fall-through cases.&lt;/p&gt;
         </description>
 		<tag>brain-overload</tag>
+        <param>
+            <key>maximum</key>
+            <defaultValue>30</defaultValue>
+        </param>
     </rule>
        
     <rule key='UselessImportCheck' priority='MINOR'>
