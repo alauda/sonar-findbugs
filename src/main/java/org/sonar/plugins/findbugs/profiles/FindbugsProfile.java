@@ -40,7 +40,7 @@ public class FindbugsProfile extends ProfileDefinition {
   @Override
   public RulesProfile createProfile(ValidationMessages messages) {
     Reader findbugsProfile = new InputStreamReader(this.getClass().getResourceAsStream(
-      "/org/sonar/plugins/findbugs/profile-findbugs-only.xml"));
+      "/org/sonar/plugins/findbugs/rules-sonar.xml"));
     RulesProfile profile = importer.importProfile(findbugsProfile, messages);
     profile.setLanguage(Java.KEY);
     profile.setName(FINDBUGS_PROFILE_NAME);
