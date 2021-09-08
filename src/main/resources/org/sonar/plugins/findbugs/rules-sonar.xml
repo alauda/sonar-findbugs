@@ -71,6 +71,10 @@ public enum MyEnum {
 &lt;/pre&gt;
         </description>
     <tag>convention</tag>
+    <param>
+       <key>format</key>
+        <defaultValue>^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$</defaultValue>
+    </param>
   </rule>
 
     <rule key='S2589' priority='MAJOR'>
@@ -227,6 +231,10 @@ class MyClass {
 &lt;/pre&gt;
         </description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z][a-zA-Z0-9]*$</defaultValue>
+        </param>
     </rule>
 
     <rule key='S1135' priority='INFO'>
@@ -336,6 +344,10 @@ public interface MyInterface {...}
 &lt;/pre&gt;
         </description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[A-Z][a-zA-Z0-9]*$</defaultValue>
+        </param>
     </rule>
 
     <rule key='S1133' priority='INFO'>
@@ -388,6 +400,10 @@ public class MyClass&lt;T&gt; {
 &lt;/pre&gt;
         </description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[A-Z][0-9]?$</defaultValue>
+        </param>
     </rule>
 
     <rule key='S2222' priority='CRITICAL'>
@@ -438,90 +454,94 @@ public class MyClass {
         <name>Local variable and method parameter names should comply with a naming convention</name>
         <configKey>S00117</configKey>
         <description>
-            &lt;p&gt;Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when a local variable or function parameter name does
-            not match the provided regular expression.&lt;/p&gt;
-            &lt;h2&gt;Noncompliant Code Example&lt;/h2&gt;
-            &lt;p&gt;With the default regular expression &lt;code&gt;^[a-z][a-zA-Z0-9]*$&lt;/code&gt;:&lt;/p&gt;
-            &lt;pre&gt;
-            public void doSomething(int my_param) {
-            int LOCAL;
-            ...
-            }
-            &lt;/pre&gt;
-            &lt;h2&gt;Compliant Solution&lt;/h2&gt;
-            &lt;pre&gt;
-            public void doSomething(int myParam) {
-            int local;
-            ...
-            }
-            &lt;/pre&gt;
-            &lt;h2&gt;Exceptions&lt;/h2&gt;
-            &lt;p&gt;Loop counters are ignored by this rule.&lt;/p&gt;
-            &lt;pre&gt;
-            for (int i_1 = 0; i_1 &lt; limit; i_1++) {  // Compliant
-            // ...
-            }
-            &lt;/pre&gt;
-            &lt;p&gt;as well as one-character &lt;code&gt;catch&lt;/code&gt; variables: &lt;/p&gt;
-            &lt;pre&gt;
-            try {
-            //...
-            } catch (Exception e) { // Compliant
-            }
-            &lt;/pre&gt;
+&lt;p&gt;Shared naming conventions allow teams to collaborate effectively. This rule raises an issue when a local variable or function parameter name does
+not match the provided regular expression.&lt;/p&gt;
+&lt;h2&gt;Noncompliant Code Example&lt;/h2&gt;
+&lt;p&gt;With the default regular expression &lt;code&gt;^[a-z][a-zA-Z0-9]*$&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;
+public void doSomething(int my_param) {
+int LOCAL;
+...
+}
+&lt;/pre&gt;
+&lt;h2&gt;Compliant Solution&lt;/h2&gt;
+&lt;pre&gt;
+public void doSomething(int myParam) {
+int local;
+...
+}
+&lt;/pre&gt;
+&lt;h2&gt;Exceptions&lt;/h2&gt;
+&lt;p&gt;Loop counters are ignored by this rule.&lt;/p&gt;
+&lt;pre&gt;
+for (int i_1 = 0; i_1 &lt; limit; i_1++) {  // Compliant
+// ...
+}
+&lt;/pre&gt;
+&lt;p&gt;as well as one-character &lt;code&gt;catch&lt;/code&gt; variables: &lt;/p&gt;
+&lt;pre&gt;
+try {
+//...
+} catch (Exception e) { // Compliant
+}
+&lt;/pre&gt;
         </description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z][a-zA-Z0-9]*$</defaultValue>
+        </param>
     </rule>
 
     <rule key='S2583' priority='MAJOR'>
         <name>Conditionally executed blocks should be reachable</name>
         <configKey>S2583</configKey>
         <description>
-            &lt;p&gt;Conditional expressions which are always &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; can lead to dead code. Such code is always buggy and should never
-            be used in production.&lt;/p&gt;
-            &lt;h2&gt;Noncompliant Code Example&lt;/h2&gt;
-            &lt;pre&gt;
-            a = false;
-            if (a) { // Noncompliant
-            doSomething(); // never executed
-            }
+&lt;p&gt;Conditional expressions which are always &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; can lead to dead code. Such code is always buggy and should never
+be used in production.&lt;/p&gt;
+&lt;h2&gt;Noncompliant Code Example&lt;/h2&gt;
+&lt;pre&gt;
+a = false;
+if (a) { // Noncompliant
+doSomething(); // never executed
+}
 
-            if (!a || b) { // Noncompliant; "!a" is always "true", "b" is never evaluated
-            doSomething();
-            } else {
-            doSomethingElse(); // never executed
-            }
-            &lt;/pre&gt;
-            &lt;h2&gt;Exceptions&lt;/h2&gt;
-            &lt;p&gt;This rule will not raise an issue in either of these cases:&lt;/p&gt;
-            &lt;ul&gt;
-            &lt;li&gt; When the condition is a single &lt;code&gt;final boolean&lt;/code&gt; &lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;pre&gt;
-            final boolean debug = false;
-            //...
-            if (debug) {
-            // Print something
-            }
-            &lt;/pre&gt;
-            &lt;ul&gt;
-            &lt;li&gt; When the condition is literally &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;. &lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;pre&gt;
-            if (true) {
-            // do something
-            }
-            &lt;/pre&gt;
-            &lt;p&gt;In these cases it is obvious the code is as intended.&lt;/p&gt;
-            &lt;h2&gt;See&lt;/h2&gt;
-            &lt;ul&gt;
-            &lt;li&gt; MISRA C:2004, 13.7 - Boolean operations whose results are invariant shall not be permitted. &lt;/li&gt;
-            &lt;li&gt; MISRA C:2012, 14.3 - Controlling expressions shall not be invariant &lt;/li&gt;
-            &lt;li&gt; &lt;a href="http://cwe.mitre.org/data/definitions/570.html"&gt;MITRE, CWE-570&lt;/a&gt; - Expression is Always False &lt;/li&gt;
-            &lt;li&gt; &lt;a href="http://cwe.mitre.org/data/definitions/571"&gt;MITRE, CWE-571&lt;/a&gt; - Expression is Always True &lt;/li&gt;
-            &lt;li&gt; &lt;a href="https://www.securecoding.cert.org/confluence/x/NYA5"&gt;CERT, MSC12-C.&lt;/a&gt; - Detect and remove code that has no effect or is never
-            executed &lt;/li&gt;
-            &lt;/ul&gt;
+if (!a || b) { // Noncompliant; "!a" is always "true", "b" is never evaluated
+doSomething();
+} else {
+doSomethingElse(); // never executed
+}
+&lt;/pre&gt;
+&lt;h2&gt;Exceptions&lt;/h2&gt;
+&lt;p&gt;This rule will not raise an issue in either of these cases:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; When the condition is a single &lt;code&gt;final boolean&lt;/code&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+final boolean debug = false;
+//...
+if (debug) {
+// Print something
+}
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt; When the condition is literally &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+if (true) {
+// do something
+}
+&lt;/pre&gt;
+&lt;p&gt;In these cases it is obvious the code is as intended.&lt;/p&gt;
+&lt;h2&gt;See&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt; MISRA C:2004, 13.7 - Boolean operations whose results are invariant shall not be permitted. &lt;/li&gt;
+&lt;li&gt; MISRA C:2012, 14.3 - Controlling expressions shall not be invariant &lt;/li&gt;
+&lt;li&gt; &lt;a href="http://cwe.mitre.org/data/definitions/570.html"&gt;MITRE, CWE-570&lt;/a&gt; - Expression is Always False &lt;/li&gt;
+&lt;li&gt; &lt;a href="http://cwe.mitre.org/data/definitions/571"&gt;MITRE, CWE-571&lt;/a&gt; - Expression is Always True &lt;/li&gt;
+&lt;li&gt; &lt;a href="https://www.securecoding.cert.org/confluence/x/NYA5"&gt;CERT, MSC12-C.&lt;/a&gt; - Detect and remove code that has no effect or is never
+executed &lt;/li&gt;
+&lt;/ul&gt;
         </description>
 		<tag>based-on-misra</tag>
 		<tag>cert</tag>
@@ -771,6 +791,10 @@ package org.example;
 &lt;/pre&gt;
         </description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z_]+(\.[a-z_][a-z0-9_]*)*$</defaultValue>
+        </param>
     </rule>
 
     <rule key='S2115' priority='BLOCKER'>
@@ -1346,6 +1370,14 @@ public void doSomething(int param1, int param2, int param3, String param4) {
 &lt;code&gt;@JsonCreator&lt;/code&gt; may have a lot of parameters, encapsulation being possible. Such methods are therefore ignored.&lt;/p&gt;
         </description>
 		<tag>brain-overload</tag>
+        <param>
+            <key>max</key>
+            <defaultValue>7</defaultValue>
+        </param>
+        <param>
+            <key>constructorMax</key>
+            <defaultValue>7</defaultValue>
+        </param>
     </rule>
 
     <rule key='S2119' priority='CRITICAL'>
@@ -1646,6 +1678,10 @@ if (aInt1.get() == aInt2.get()) { ... }
         </description>
 		<tag>multi-threading</tag>
 		<tag>bug</tag>
+        <param>
+            <key>Threshold</key>
+            <defaultValue>15</defaultValue>
+        </param>
     </rule>
 
     <rule key='S2446' priority='MAJOR'>
@@ -2418,6 +2454,10 @@ class ExampleClass {
 &lt;p&gt;Imports for types mentioned in comments, such as Javadocs, are ignored.&lt;/p&gt;
         </description>
 		<tag>unused</tag>
+        <param>
+            <key>maximun</key>
+            <defaultValue>30</defaultValue>
+        </param>
     </rule>
 
     <rule key='UnusedPrivateMethod' priority='MAJOR'>
@@ -4618,6 +4658,10 @@ class MyClass {
 		&lt;/pre&gt;
 		</description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z][a-zA-Z0-9]*$</defaultValue>
+        </param>
 	</rule>
 
 	<rule key='S2151' priority='CRITICAL'>
@@ -5839,6 +5883,10 @@ public int Do_Something(){...}
 		&lt;/pre&gt;
 		</description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z][a-zA-Z0-9]*$</defaultValue>
+        </param>
 	</rule>
 
 	<rule key='S00101' priority='MINOR'>
@@ -5858,6 +5906,10 @@ class MyClass {...}
 		&lt;/pre&gt;
 		</description>
 		<tag>convention</tag>
+        <param>
+            <key>format</key>
+            <defaultValue>^[a-z][a-zA-Z0-9]*$</defaultValue>
+        </param>
 	</rule>
 	<rule key='S4435' priority='CRITICAL'>
 		<name>XML transformers should be secured</name>
@@ -10311,6 +10363,10 @@ oriented design which has led to systematically use 'inheritance' when for insta
 		&lt;p&gt;This rule raises an issue when the inheritance tree, starting from &lt;code&gt;Object&lt;/code&gt; has a greater depth than is allowed. &lt;/p&gt;
         </description>
 		<tag>design</tag>
+        <param>
+            <key>max</key>
+            <defaultValue>5</defaultValue>
+        </param>
 	</rule>
 
 	<rule key='S3864' priority='MAJOR'>
@@ -12376,6 +12432,10 @@ try {
       <cwe>798,259</cwe>
       <OWASP>A2</OWASP>
     </securityStandards>
+        <param>
+            <key>credentialWords</key>
+            <defaultValue>password,passwd,pwd,passphrase,java.naming.security.credentials</defaultValue>
+        </param>
 	</rule>
     
 	<rule key='S2186' priority='CRITICAL'>
@@ -14187,6 +14247,10 @@ public void run() {
 		&lt;p&gt;To prevent generating some false-positives, literals having less than 5 characters are excluded.&lt;/p&gt;
         </description>
 		<tag>design</tag>
+        <param>
+            <key>threshold</key>
+            <defaultValue>3</defaultValue>
+        </param>
 	</rule>
 
 	<rule key='S1191' priority='MAJOR'>

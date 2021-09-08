@@ -26,8 +26,8 @@ import org.sonar.plugins.java.Java;
 
 public class AlaudaRulesDefinition implements RulesDefinition {
 
-  public static final String REPOSITORY_KEY = "test";
-  public static final String REPOSITORY_NAME = "test rule";
+  public static final String REPOSITORY_KEY = "java";
+  public static final String REPOSITORY_NAME = "SonarAnalyzer";
 
   @Override
   public void define(Context context) {
